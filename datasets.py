@@ -7,6 +7,7 @@ from facenet_pytorch import MTCNN
 from PIL import Image
 import torch
 from tqdm import tqdm
+import numpy as np
 
 # Step 1: Frame Extraction
 def extract_frames(video_path, frame_dir, fps=1, reencode=True):
@@ -39,39 +40,76 @@ def extract_frames(video_path, frame_dir, fps=1, reencode=True):
     if result.returncode != 0:
         raise RuntimeError(f"FFmpeg frame extraction failed for {video_path}: {result.stderr}")
 
-    # Verify frames were created
+    # Verify frames were created and are valid RGB
     frames = list(frame_dir.glob("*.jpg"))
     if not frames:
         raise RuntimeError(f"No frames extracted for {video_path}. Check video or FFmpeg.")
     
+    # Check one frame for RGB and non-blank content
+    try:
+        sample_frame = Image.open(frames[0]).convert("RGB")
+        if sample_frame.mode != "RGB":
+            raise RuntimeError(f"Frame {frames[0]} is not RGB: mode={sample_frame.mode}")
+        frame_array = np.array(sample_frame)
+        if frame_array.max() == frame_array.min():  # Check if image is blank (e.g., all black)
+            raise RuntimeError(f"Frame {frames[0]} appears blank (no color variation).")
+    except Exception as e:
+        raise RuntimeError(f"Invalid frame {frames[0]}: {e}")
+
     # Clean up fixed video if used
     if reencode:
         fixed_video.unlink(missing_ok=True)
 
     return len(frames)
 
-# Step 2: Face Cropping (with batching for speed)
-def crop_faces(frame_dir, face_dir, mtcnn):
+# Step 2: Face Cropping
+def crop_faces(frame_dir, face_dir, mtcnn, resize_to=(640, 480)):
     face_dir.mkdir(parents=True, exist_ok=True)
     
     # Load all frames as list of PIL images
     frame_files = sorted(frame_dir.glob("*.jpg"))
     if not frame_files:
+        print(f"No frames found in {frame_dir}")
         return
     
-    imgs = [Image.open(f).convert("RGB") for f in frame_files]
+    # Resize images to consistent dimensions and ensure RGB
+    imgs = []
+    for f in frame_files:
+        try:
+            img = Image.open(f).convert("RGB")
+            img = img.resize(resize_to, Image.Resampling.LANCZOS)  # High-quality resize
+            imgs.append(img)
+        except Exception as e:
+            print(f"Skipping {f}: Failed to load image ({e})")
+            continue
+    
+    if not imgs:
+        print(f"No valid images in {frame_dir}")
+        return
     
     # Batch detect and extract faces
-    faces = mtcnn(imgs)
+    try:
+        faces = mtcnn(imgs)
+    except Exception as e:
+        print(f"MTCNN failed for {frame_dir}: {e}")
+        return
     
-    # Save each (faces is list of tensors or None)
+    # Save each face as RGB JPEG
     for frame_file, face in zip(frame_files, faces):
         try:
             if face is not None:
                 # Convert [0,1] float tensor to uint8 numpy array
                 face_img = (face.permute(1, 2, 0) * 255).byte().cpu().numpy()
                 face_pil = Image.fromarray(face_img)
-                face_pil.save(face_dir / frame_file.name)
+                if face_pil.mode != "RGB":
+                    face_pil = face_pil.convert("RGB")  # Ensure RGB mode
+                face_pil.save(face_dir / frame_file.name, quality=95)  # Higher JPEG quality
+                # Verify saved image
+                saved_img = Image.open(face_dir / frame_file.name)
+                if saved_img.mode != "RGB":
+                    print(f"Warning: Saved face {frame_file.name} is not RGB: mode={saved_img.mode}")
+            else:
+                print(f"No face detected in {frame_file}")
         except Exception as e:
             print(f"Skipping {frame_file}: {e}")
 
@@ -107,7 +145,7 @@ def build_dataset(data_root, output_root, test_ratio=0.2, reencode=True):
                 print(f"Frame extraction failed for {vid}: {e}")
                 continue
                 
-            # Crop faces (batched)
+            # Crop faces (with resizing)
             crop_faces(frame_dir, face_dir, mtcnn)
     
     print("Dataset build complete!")
