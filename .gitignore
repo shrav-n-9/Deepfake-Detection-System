@@ -1,2 +1,13 @@
 myenv/
 data/
+FFPlus/
+work_pytorch/
+
+preprocess.log
+
+count_frames.ps1
+corrupt_check.py
+
+*.pth
+
+app.py

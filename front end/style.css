@@ -1,0 +1,110 @@
+
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+DW+Pica:ital@0;1&family=IM+Fell+English+SC&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+title{
+    font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: white;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  max-width: 500px;
+  width: 90%;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.upload-box {
+  border: 2px dashed #aaa;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+  transition: 0.3s;
+}
+
+.upload-box:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: #4da6ff;
+}
+
+#preview {
+  margin-top: 20px;
+  max-width: 250px;
+  border-radius: 12px;
+  display: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.result {
+  margin-top: 30px;
+  font-size: 22px;
+  padding: 20px;
+  border-radius: 12px;
+  display: inline-block;
+  min-width: 200px;
+  transition: 0.3s ease;
+}
+
+.result.real {
+  background: #2ecc71;
+  color: white;
+}
+
+.result.fake {
+  background: #e74c3c;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+/* --- Space background canvas --- */
+#space-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;               /* behind UI */
+  pointer-events: none;     /* let clicks pass through */
+  display: block;
+}
+
+/* Ensure container stays above the canvas */
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+/* subtle translucent backdrop to better see content */
+.container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
+  z-index: -1;
+}

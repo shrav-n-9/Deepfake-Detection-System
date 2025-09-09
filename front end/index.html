@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deepfake Detector </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Fullscreen animated space canvas -->
+  <canvas id="space-canvas" aria-hidden="true"></canvas>
+
+  <div class="container">
+    <h1>Deepfake Detector</h1>
+    <p>Upload a face image and I’ll tell you if it’s Real or Fake</p>
+
+    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept="image/*" hidden>
+      <p>Click or drag an image here</p>
+    </div>
+
+    <img id="preview" alt="Preview will appear here" />
+
+    <div id="result" class="result hidden"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="space-bg.js"></script> <!-- new animation JS -->
+</body>
+</html>
