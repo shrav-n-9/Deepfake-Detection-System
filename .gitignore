@@ -10,4 +10,4 @@ corrupt_check.py
 
 *.pth
 
-app.py
+image_detection.py

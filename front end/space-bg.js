@@ -1,4 +1,3 @@
-// space-bg.js
 (() => {
   const canvas = document.getElementById('space-canvas');
   const ctx = canvas.getContext('2d', { alpha: true });
