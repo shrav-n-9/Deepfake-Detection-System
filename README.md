@@ -15,38 +15,39 @@ After receiving approval, use the provided download script to obtain the dataset
 Organize Files
 Ensure the dataset directories are structured as follows:
 
-├── DeepFakeDetection
-│   ├── Deepfakes
-│   ├── Face2Face
-│   ├── FaceSwap
-│   └── NeuralTextures
-│   └── FaceShifter
-│   └── Originals 
+DeepFakeDetection
+├── Deepfakes
+├── Face2Face
+├── FaceSwap
+├── NeuralTextures
+├── FaceShifter
+└── Originals
+
 
 ## Installation
 
 Clone the Repository
-'''
+```
 git clone https://github.com/shrav-n-9/Deepfake-Detection-System.git
 cd Deepfake-Detection-System
-'''
+```
 
 Create a Virtual Environment
-'''
+```
 python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
-'''
+```
 
 Install Dependencies
-'''
+```
 pip install -r requirements.txt
-'''
+```
 ## Usage
 
 Launch Jupyter Notebook:
-'''
+```
 jupyter notebook
-'''
+```
 
 Open image_detection.ipynb and follow the instructions to:
 
