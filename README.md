@@ -1,6 +1,6 @@
 # Deepfake Detection System
 
-![Python](https://img.shields.io/badge/python-3.9-blue) ![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.10-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
 A **Deepfake Detection System** built on the FaceForensics++ dataset to identify and classify manipulated faces using state-of-the-art computer vision techniques. This project demonstrates deepfake detection through training, inference, and an interactive app interface.
 
