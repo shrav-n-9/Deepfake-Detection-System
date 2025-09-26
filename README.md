@@ -155,8 +155,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-* [FaceForensics++ dataset](https://github.com/ondyari/FaceForensics)
-* Relevant research papers and contributors to deepfake detection.
+* [FaceForensics++ dataset](https://github.com/ondyari/FaceForensics)SS
 
 ---
 
