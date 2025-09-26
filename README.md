@@ -119,7 +119,7 @@ The app will load the trained `.pth` model weights and perform deepfake detectio
 
 ---
 
-## 📊 Results / Benchmarks
+## Results / Benchmarks
 
 - **ROC AUC:** 0.876  
 - **Overall Accuracy:** 79%  
@@ -134,15 +134,6 @@ The app will load the trained `.pth` model weights and perform deepfake detectio
 
 [[3628 248]
 [3175 9621]]
-
----
-
-## Future Work / Roadmap
-
-* Add support for additional datasets.
-* Experiment with lightweight models for mobile/edge inference.
-* Deploy as a web app with Flask/FastAPI.
-* Add explainability features (Grad-CAM, heatmaps).
 
 ---
 
