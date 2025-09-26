@@ -107,14 +107,15 @@ python app.py
 The app will load the trained `.pth` model weights and perform deepfake detection.
 
 ---
-## Demo / Screenshots
-![App Interface](assets/Screenshot 2025-09-26 223946.png)
+## 📸 Demo / Screenshots
 
-![Detection Example](assets/Screenshot 2025-09-26 225128.png)
+### App Interface
+![App Interface](assets/Screenshot%202025-09-26%20223946.png)
 
-![Detection Example](assets/Screenshot 2025-09-26 225146.png)
-
-![Detection Example](assets/Screenshot 2025-09-26 225256.png)
+### Detection Examples
+![Detection Example 1](assets/Screenshot%202025-09-26%20225128.png)  
+![Detection Example 2](assets/Screenshot%202025-09-26%20225146.png)  
+![Detection Example 3](assets/Screenshot%202025-09-26%20225256.png)
 
 ---
 
