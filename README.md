@@ -155,7 +155,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-* [FaceForensics++ dataset](https://github.com/ondyari/FaceForensics)SS
+* [FaceForensics++ dataset](https://github.com/ondyari/FaceForensics)
 
 ---
 
