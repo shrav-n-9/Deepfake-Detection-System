@@ -1,70 +1,171 @@
 # Deepfake Detection System
-## Overview
 
-This repository implements an image-based deepfake detection system using the FaceForensics++ dataset. It provides tools for preprocessing and detecting manipulated images using a pre-trained detection model.
+![Python](https://img.shields.io/badge/python-3.9-blue) ![License](https://img.shields.io/badge/license-MIT-green)
 
-## Dataset: FaceForensics++
+A **Deepfake Detection System** built on the FaceForensics++ dataset to identify and classify manipulated faces using state-of-the-art computer vision techniques. This project demonstrates deepfake detection through training, inference, and an interactive app interface.
 
-Request Access
-Visit the FaceForensics++ project page
- and fill out the access form.
+---
 
-Download Dataset
-After receiving approval, use the provided download script to obtain the dataset.
+## Features
 
-Organize Files
-Ensure the dataset directories are structured as follows:
+* Detects deepfakes across multiple manipulation methods:
 
-DeepFakeDetection
-├── Deepfakes
-├── Face2Face
-├── FaceSwap
-├── NeuralTextures
-├── FaceShifter
-└── Originals
+  * FaceShifter
+  * Face2Face
+  * FaceSwap
+  * NeuralTextures
+  * DeepFakes
+  * Originals
+* Trained on the **FaceForensics++** dataset.
+* Supports **CPU** and **GPU** environments.
+* Generates `.pth` model weights from training.
+* Interactive app (`app.py`) for real-time deepfake detection.
 
+---
 
-## Installation
+## Project Structure
 
-Clone the Repository
+```plaintext
+Deepfake-Detection-System/
+├── app.py                # Main application script
+├── image_detection.ipynb # Training notebook for deepfake detection
+├── requirements.txt      # Dependencies for CPU
+├── requirements-gpu.txt  # Dependencies for GPU
+├── models/               # Saved .pth model weights
+├── data/                 # FaceForensics++ dataset (after download)
+└── README.md             # Project documentation
 ```
-git clone https://github.com/shrav-n-9/Deepfake-Detection-System.git
-cd Deepfake-Detection-System
+
+---
+
+## Dataset Preparation (FaceForensics++)
+
+The system uses the **FaceForensics++ dataset**.
+
+1. Request access from the [FaceForensics++ website](https://github.com/ondyari/FaceForensics).
+2. Once access is granted, download datasets with:
+
+```bash
+python download_FF++.py --dataset FaceShifter
+python download_FF++.py --dataset Face2Face
+python download_FF++.py --dataset FaceSwap
+python download_FF++.py --dataset NeuralTextures
+python download_FF++.py --dataset DeepFakes
+python download_FF++.py --dataset Originals
 ```
 
-Create a Virtual Environment
-```
+Place all datasets under the `data/` directory.
+
+---
+
+## Environment Setup
+
+### Create Virtual Environment
+
+```bash
 python -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
+source venv/bin/activate   # Linux/MacOS
+venv\Scripts\activate      # Windows
 ```
 
-Install Dependencies
-```
+### Install Dependencies
+
+* For CPU-only systems:
+
+```bash
 pip install -r requirements.txt
 ```
-## Usage
 
-Launch Jupyter Notebook:
+* For GPU-enabled systems:
+
+```bash
+pip install -r requirements-gpu.txt
 ```
-jupyter notebook
+
+---
+
+## Model Training
+
+Open and run the Jupyter Notebook `image_detection.ipynb` sequentially:
+
+1. Preprocess dataset.
+2. Train the detection model.
+3. Save the trained model weights (`.pth` files).
+
+Trained weights will be stored in the `models/` directory.
+
+---
+
+## Running the Application
+
+After training, launch the app:
+
+```bash
+python app.py
 ```
 
-Open image_detection.ipynb and follow the instructions to:
+The app will load the trained `.pth` model weights and perform deepfake detection.
 
-Load the FaceForensics++ dataset
+---
+## Demo / Screenshots
+![App Interface](assets/Screenshot 2025-09-26 223946.png)
 
-Preprocess images
+![Detection Example](assets/Screenshot 2025-09-26 225128.png)
 
-Run the deepfake detection model
+![Detection Example](assets/Screenshot 2025-09-26 225146.png)
 
-Save the detection results
+![Detection Example](assets/Screenshot 2025-09-26 225256.png)
 
-Project Structure
+---
 
-image_detection.ipynb — Notebook for deepfake detection
+## 📊 Results / Benchmarks
 
-preprocess.py — Image preprocessing utilities
+- **ROC AUC:** 0.876  
+- **Overall Accuracy:** 79%  
 
-requirements.txt — Python dependencies
+### Class-wise Performance
+| Class | Precision | Recall | F1-score |
+|-------|-----------|--------|----------|
+| Real  | 0.53      | 0.94   | 0.68     |
+| Fake  | 0.97      | 0.75   | 0.85     |
 
-README.md — Project documentation
+### Confusion Matrix
+
+[[3628 248]
+[3175 9621]]
+
+---
+
+## Future Work / Roadmap
+
+* Add support for additional datasets.
+* Experiment with lightweight models for mobile/edge inference.
+* Deploy as a web app with Flask/FastAPI.
+* Add explainability features (Grad-CAM, heatmaps).
+
+---
+
+## Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Submit a pull request.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgements
+
+* [FaceForensics++ dataset](https://github.com/ondyari/FaceForensics)
+* Relevant research papers and contributors to deepfake detection.
+
+---
+
+You are now ready to detect deepfakes with the Deepfake Detection System!
